@@ -1,3 +1,5 @@
+const { handleWebpackExtenalForEdgeRuntime } = require('next/dist/build/webpack/plugins/middleware-plugin');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -8,6 +10,14 @@ const nextConfig = {
   compiler: {
     // see https://styled-components.com/docs/tooling#babel-plugin for more info on the options.
     styledComponents: true,
+  },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
   },
 };
 
